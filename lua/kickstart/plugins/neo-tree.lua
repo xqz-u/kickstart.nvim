@@ -28,5 +28,10 @@ return {
         },
       },
     },
+    default_component_configs = {
+      symlink_target = {
+        enabled = true, -- show target of symlinks next to their name
+      },
+    },
   },
 }

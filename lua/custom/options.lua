@@ -4,8 +4,7 @@
 
 -- Make line numbers default
 vim.o.number = true
--- vim.o.relativenumber = true
-
+vim.o.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
@@ -65,3 +64,12 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- NOTE: From https://github.com/hendrikmi/dotfiles/blob/main/nvim/lua/core/options.lua
+vim.o.expandtab = true -- convert tabs to spaces
+vim.o.shiftwidth = 4 -- number of spaces inserted for each indentation
+vim.o.tabstop = 4 -- how many spaces a tab correspons to
+vim.o.whichwrap = 'bs<>[]hl' -- which "horizontal" keys are allowed to travel to prev/next line
+vim.o.autoindent = true -- copy indent from current line when starting new one
+vim.o.smartindent = true
+vim.o.swapfile = true
