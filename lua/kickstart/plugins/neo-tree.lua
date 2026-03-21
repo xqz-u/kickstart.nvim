@@ -19,6 +19,9 @@ return {
   ---@type neotree.Config
   opts = {
     filesystem = {
+      filtered_items = {
+        visible = true, -- Show hidden files too
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
