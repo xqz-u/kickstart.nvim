@@ -2,6 +2,9 @@
 -- See `:help vim.o`
 -- NOTE: For more options, you can see `:help option-list`
 
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
 -- Make line numbers default
 vim.o.number = true
 vim.o.relativenumber = true
