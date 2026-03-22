@@ -837,6 +837,9 @@ do
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommended keymaps
   require 'plugins.colorscheme',
+  require 'plugins.which-key',
+  require 'plugins.opencode',
+  require 'plugins.lazygit',
   require 'plugins.opencode',
   require 'plugins.lazygit',
 
