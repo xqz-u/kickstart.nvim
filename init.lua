@@ -11,12 +11,6 @@ end
 -- ============================================================
 do
   require 'core.plugin-manager'
-
-  -- Because most plugins are hosted on GitHub, you can use the helper
-  -- function to have less repetition in the following sections.
-  -- @param repo string
-  -- @return string
-  function gh(repo) return 'https://github.com/' .. repo end
 end
 
 -- ============================================================
@@ -78,7 +72,6 @@ do
   -- require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
   require 'kickstart.plugins.neo-tree'
-  require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --

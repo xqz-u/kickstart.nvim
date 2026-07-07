@@ -3,7 +3,10 @@
 -- change the command under that to load whatever the name of that colorscheme is.
 --
 -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+local gh = require('core.functions').gh
+
 vim.pack.add { gh 'folke/tokyonight.nvim' }
+
 ---@diagnostic disable-next-line: missing-fields
 require('tokyonight').setup {
   styles = {

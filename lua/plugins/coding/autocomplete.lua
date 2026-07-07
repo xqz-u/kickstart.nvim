@@ -1,5 +1,8 @@
 -- [[ Autocomplete Engine ]]
+local gh = require('core.functions').gh
+
 vim.pack.add { { src = gh 'saghen/blink.cmp', version = vim.version.range '1.*' } }
+
 require('blink.cmp').setup {
   keymap = {
     -- 'default' (recommended) for mappings similar to built-in completions

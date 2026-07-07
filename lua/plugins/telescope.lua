@@ -21,6 +21,8 @@
 -- This opens a window that shows you all of the keymaps for the current
 -- Telescope picker. This is really useful to discover what Telescope can
 -- do as well as how to actually do it!
+local gh = require('core.functions').gh
+
 ---@type (string|vim.pack.Spec)[]
 local telescope_plugins = {
   gh 'nvim-lua/plenary.nvim',
@@ -28,8 +30,10 @@ local telescope_plugins = {
   gh 'nvim-telescope/telescope-ui-select.nvim',
 }
 if vim.fn.executable 'make' == 1 then table.insert(telescope_plugins, gh 'nvim-telescope/telescope-fzf-native.nvim') end
+
 -- NOTE: You can install multiple plugins at once
 vim.pack.add(telescope_plugins)
+
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   -- You can put your default mappings / updates / etc. in here

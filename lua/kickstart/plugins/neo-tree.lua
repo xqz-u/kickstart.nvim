@@ -15,6 +15,8 @@ require('neo-tree').setup {
       mappings = {
         ['\\'] = 'close_window',
       },
+      width = 35,
+      position = 'right',
     },
     filtered_items = {
       visible = true, -- Show hidden files too

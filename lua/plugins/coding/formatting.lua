@@ -1,12 +1,15 @@
 -- [[ Formatting ]]
+local gh = require('core.functions').gh
+
 vim.pack.add { gh 'stevearc/conform.nvim' }
+
 require('conform').setup {
   notify_on_error = true,
   format_on_save = function(bufnr)
     -- You can specify filetypes to autoformat on save here:
     local enabled_filetypes = {
-      -- lua = true,
-      -- python = true,
+      lua = true,
+      python = true,
     }
     if enabled_filetypes[vim.bo[bufnr].filetype] then
       return { timeout_ms = 500 }
@@ -25,7 +28,12 @@ require('conform').setup {
     --
     -- You can use 'stop_after_first' to run the first available formatter from the list
     -- javascript = { "prettierd", "prettier", stop_after_first = true },
-    python = { 'ruff_organize_imports', 'ruff_format' }, -- Fast Python formatter
+    --- style from .stylua.toml; lua_ls formatting is disabled in lsp-mason.lua
+    lua = { 'stylua' },
+    --   ruff_fix             -> source.fixAll   (apply safe lint autofixes)
+    --   ruff_organize_imports-> source.organizeImports
+    --   ruff_format          -> ruff format
+    python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
   },
 }
 

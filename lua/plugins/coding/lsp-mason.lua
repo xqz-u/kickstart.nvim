@@ -26,12 +26,16 @@
 -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
 -- and elegantly composed help section, `:help lsp-vs-treesitter`
 -- Useful status updates for LSP.
+local gh = require('core.functions').gh
+
 vim.pack.add { gh 'j-hui/fidget.nvim' }
+
 require('fidget').setup {}
+
 --  This function gets run when an LSP attaches to a particular buffer.
---    That is to say, every time a new file is opened that is associated with
---    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
---    function will be executed to configure the current buffer
+--  That is to say, every time a new file is opened that is associated with
+--  an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
+--  function will be executed to configure the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
   callback = function(event)
@@ -59,6 +63,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --
     -- When you move your cursor, the highlights will be cleared (the second autocommand).
     local client = vim.lsp.get_client_by_id(event.data.client_id)
+    -- ruff (lint/format) and ty (types) both attach to Python buffers. Let ty
+    -- own hover/definitions so you there's no uplicate popups from ruff.
+    if client and client.name == 'ruff' then client.server_capabilities.hoverProvider = false end
+    -- jedi is here only for refactor code actions (extract variable/function,
+    -- inline) not provided by ty/ruff, so strip away every other capability that
+    -- is already served by the other servers.
+    if client and client.name == 'jedi_language_server' then
+      client.server_capabilities.hoverProvider = false
+      client.server_capabilities.completionProvider = nil
+      client.server_capabilities.signatureHelpProvider = nil
+      client.server_capabilities.definitionProvider = false
+      client.server_capabilities.referencesProvider = false
+      client.server_capabilities.documentHighlightProvider = false
+      client.server_capabilities.renameProvider = false -- ty owns rename
+    end
     if client and client:supports_method('textDocument/documentHighlight', event.buf) then
       local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -88,6 +107,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --  See `:help lsp-config` for information about keys and how to configure
@@ -103,8 +123,19 @@ local servers = {
   --
   -- But for many setups, the LSP (`ts_ls`) will work just fine
   -- ts_ls = {},
-  stylua = {}, -- Used to format Lua code
+  --
+  -- python (Astral toolchain): ruff = linter + formatter + import sorting,
+  -- ty = type checker / hover / go-to-definition
   ruff = {},
+  ty = {},
+  -- jedi provides the refactor code actions ty lacks (extract variable/function,
+  -- inline). Diagnostics off here so ruff stays the only lint source; its other
+  -- capabilities are stripped in the LspAttach handler above.
+  jedi_language_server = {
+    init_options = {
+      diagnostics = { enable = false },
+    },
+  },
   -- Special Lua Config, as recommended by neovim help docs
   lua_ls = {
     on_init = function(client)
@@ -137,6 +168,7 @@ local servers = {
     },
   },
 }
+
 vim.pack.add {
   gh 'neovim/nvim-lspconfig',
   gh 'mason-org/mason.nvim',
@@ -154,9 +186,13 @@ require('mason').setup {}
 -- You can press `g?` for help in this menu.
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
-  -- You can add other tools here that you want Mason to install
+  -- Non-LSP tools (formatters, linters, DAP adapters) installed by Mason but
+  -- NOT passed to vim.lsp.enable below.
+  'stylua', -- Lua formatter (used by conform.nvim)
 })
+
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
 for name, server in pairs(servers) do
   vim.lsp.config(name, server)
   vim.lsp.enable(name)
