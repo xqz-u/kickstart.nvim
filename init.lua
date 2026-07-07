@@ -31,6 +31,7 @@ do
   require 'plugins.ui-ux.colorscheme'
   require 'plugins.ui-ux.todo-comments'
   require 'plugins.ui-ux.mini'
+  require 'plugins.ui-ux.lualine'
 end
 
 -- ============================================================
