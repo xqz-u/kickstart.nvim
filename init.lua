@@ -52,6 +52,7 @@ do
   require 'plugins.coding.autocomplete'
   require 'plugins.coding.treesitter'
   require 'plugins.coding.lazygit'
+  require 'plugins.coding.claude-code'
 end
 
 -- ============================================================
