@@ -21,6 +21,18 @@ require('snacks').setup {
       { section = 'projects', icon = ' ', title = 'Projects', indent = 2, padding = 1 },
     },
   },
+  terminal = {},
 }
 
 vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit() end, { desc = '[L]azy[G]it' })
+
+-- Options applied only to shells, keeping lazygit floating.
+-- Window navigation in and out of terminal lives in 'core/keymaps.lua'.
+local term_opts = { win = { position = 'bottom', height = 0.4 } }
+-- <leader>tt toggles a single persistent shell (same terminal comes back);
+-- <leader>tT always spawns a brand new, independent one.
+vim.keymap.set({ 'n', 't' }, '<leader>tt', function() Snacks.terminal.toggle(nil, term_opts) end, { desc = '[T]oggle [T]erminal' })
+vim.keymap.set({ 'n', 't' }, '<leader>tT', function() Snacks.terminal.open(nil, term_opts) end, { desc = 'New [T]erminal' })
+
+-- Delete the current buffer via Snacks so the window/split layout survives.
+vim.keymap.set('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = '[B]uffer [D]elete' })
