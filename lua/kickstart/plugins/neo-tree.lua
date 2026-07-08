@@ -26,5 +26,8 @@ require('neo-tree').setup {
         enabled = true, -- show target of symlinks next to their name
       },
     },
+    -- Allows showing the status of multiple git repos even under a non-repo root
+    use_libuv_file_watcher = true,
+    follow_current_file = { enabled = true, leave_dirs_open = true },
   },
 }
