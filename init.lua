@@ -33,6 +33,7 @@ do
   require 'plugins.ui-ux.mini'
   require 'plugins.ui-ux.lualine'
   require 'plugins.ui-ux.snacks'
+  require 'plugins.ui-ux.markdown'
 end
 
 -- ============================================================
