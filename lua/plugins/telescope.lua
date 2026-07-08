@@ -60,36 +60,8 @@ pcall(require('telescope').load_extension, 'ui-select')
 local builtin = require 'telescope.builtin'
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
--- Like `find_files`, but pressing <C-e> turns whatever you've typed into a new
--- file: opens an empty buffer and only creates parent dirs at write time (via a
--- one-shot BufWritePre), so abandoning the buffer without `:w` touches nothing.
-vim.keymap.set('n', '<leader>sf', function()
-  local action_state = require 'telescope.actions.state'
-  local actions = require 'telescope.actions'
-  builtin.find_files {
-    attach_mappings = function(_, map)
-      local create = function(prompt_bufnr)
-        local name = action_state.get_current_line() -- whatever you typed
-        local cwd = action_state.get_current_picker(prompt_bufnr).cwd or vim.uv.cwd()
-        actions.close(prompt_bufnr)
-
-        local path = vim.fs.joinpath(cwd, name)
-        vim.cmd.edit(path) -- opens a [New] buffer; nothing on disk yet
-
-        -- Create parent dirs only at write time, so abandoning the buffer
-        -- (no :w) leaves the filesystem untouched.
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          buffer = 0,
-          once = true,
-          callback = function() vim.fn.mkdir(vim.fs.dirname(path), 'p') end,
-        })
-      end
-      map('i', '<C-e>', create)
-      map('n', '<C-e>', create)
-      return true
-    end,
-  }
-end, { desc = '[S]earch [F]iles (<C-e> creates typed path)' })
+-- <leader>sf (find files) now lives in the Snacks picker so image files preview
+-- inline; see 'lua/plugins/ui-ux/snacks.lua'.
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })

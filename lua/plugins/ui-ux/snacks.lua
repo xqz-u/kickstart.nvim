@@ -1,6 +1,10 @@
-local gh = require('core.functions').gh
+local functions = require 'core.functions'
 
-vim.pack.add { gh 'folke/snacks.nvim' }
+vim.pack.add { functions.gh 'folke/snacks.nvim' }
+
+-- Shared between the chafa render size and the dashboard section height so the
+-- terminal pane is exactly as tall as the image it renders.
+local image_height = 20
 
 require('snacks').setup {
   lazygit = {},
@@ -14,17 +18,40 @@ require('snacks').setup {
     formats = {
       key = function(item) return { { '[', hl = 'special' }, { item.key, hl = 'key' }, { ']', hl = 'special' } } end,
     },
+    pane_gap = 8,
     sections = {
-      { section = 'header' },
-      { section = 'keys', icon = ' ', title = 'Keymaps', indent = 2, padding = 1 },
-      { section = 'recent_files', icon = ' ', title = 'Recent Files', indent = 2, padding = 1 },
-      { section = 'projects', icon = ' ', title = 'Projects', indent = 2, padding = 1 },
+      {
+        section = 'terminal',
+        cmd = functions.random_image_cmd(vim.fn.join({ vim.fn.stdpath 'config', 'images' }, '/'), { height = image_height }),
+        height = image_height,
+      },
+      { pane = 2, section = 'header' },
+      { pane = 2, section = 'keys', icon = ' ', title = 'Keymaps', indent = 2, padding = 1 },
+      { pane = 2, section = 'recent_files', icon = ' ', title = 'Recent Files', indent = 2, padding = 1 },
+      -- { pane = 2, section = 'projects', icon = ' ', title = 'Projects', indent = 2, padding = 1 },
     },
   },
   terminal = {},
+  image = {},
+  picker = {},
 }
 
 vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit() end, { desc = '[L]azy[G]it' })
+
+-- Snacks picker for files: previews images inline, unlike Telescope's previewer.
+vim.keymap.set(
+  'n',
+  '<leader>sf',
+  function()
+    Snacks.picker.files {
+      matcher = { frecency = true, sort_empty = true },
+    }
+  end,
+  { desc = '[S]earch [F]iles' }
+)
+
+-- Reopen the dashboard on demand (not just at startup).
+vim.keymap.set('n', '<leader>d', function() Snacks.dashboard.open() end, { desc = '[D]ashboard' })
 
 -- Options applied only to shells, keeping lazygit floating.
 -- Window navigation in and out of terminal lives in 'core/keymaps.lua'.
