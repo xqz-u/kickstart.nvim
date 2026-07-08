@@ -32,6 +32,7 @@ do
   require 'plugins.ui-ux.todo-comments'
   require 'plugins.ui-ux.mini'
   require 'plugins.ui-ux.lualine'
+  require 'plugins.ui-ux.snacks'
 end
 
 -- ============================================================
@@ -51,7 +52,6 @@ do
   require 'plugins.coding.snippets'
   require 'plugins.coding.autocomplete'
   require 'plugins.coding.treesitter'
-  require 'plugins.coding.lazygit'
   require 'plugins.coding.claude-code'
 end
 
