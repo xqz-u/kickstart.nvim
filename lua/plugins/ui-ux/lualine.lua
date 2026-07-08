@@ -11,5 +11,13 @@ require('lualine').setup {
       -- Only show the first letter of the Vim mode instead of the full string
       { 'mode', fmt = function(str) return str:sub(1, 1) end },
     },
+    lualine_c = {
+      {
+        'filename',
+        -- 1 = path relative to cwd
+        path = 1,
+        file_status = true,
+      },
+    },
   },
 }
