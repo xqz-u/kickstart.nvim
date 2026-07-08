@@ -15,15 +15,21 @@ function M.gh(repo) return 'https://github.com/' .. repo end
 --- Pick a random image from `folder` and build the `chafa` command that renders
 --- it, ready to feed to a snacks' `terminal` dashboard section's `cmd`.
 --- @param folder string directory to scan for images (relative to cwd or absolute)
---- @param opts? { width?: integer, height?: integer } render size (default 60x20)
+--- @param opts? { width?: integer, height?: integer, stretch?: boolean } render size (default 60x20, stretch on)
 --- @return string? cmd chafa command string, or nil if no image was found
 function M.random_image_cmd(folder, opts)
   opts = opts or {}
-  local size = string.format('%dx%d', opts.width or 60, opts.height or 20)
   local images = vim.fn.globpath(folder, '*.{png,jpg,jpeg,gif,webp}', false, true)
   if vim.tbl_isempty(images) then return nil end
   local image = images[math.random(#images)]
-  return string.format('chafa %s --format symbols --size %s --stretch --symbols all; sleep .1', vim.fn.shellescape(image), size)
+  local size = string.format('%dx%d', opts.width or 60, opts.height or 20)
+  local stretch = opts.stretch ~= false and '--stretch' or ''
+  return string.format(
+    'chafa %s --format symbols --size %s %s --symbols all; sleep .1',
+    vim.fn.shellescape(image),
+    size,
+    stretch
+  )
 end
 
 return M
