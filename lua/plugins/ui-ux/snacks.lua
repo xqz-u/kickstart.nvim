@@ -4,7 +4,7 @@ vim.pack.add { functions.gh 'folke/snacks.nvim' }
 
 -- Shared between the chafa render size and the dashboard section height so the
 -- terminal pane is exactly as tall as the image it renders.
-local image_height = 60
+local image_width, image_height = 60, 20
 
 require('snacks').setup {
   lazygit = {},
@@ -26,10 +26,10 @@ require('snacks').setup {
         section = 'terminal',
         cmd = functions.random_image_cmd(
           vim.fn.join({ vim.fn.stdpath 'config', 'images' }, '/'),
-          { height = image_height, width = image_height, stretch = false }
+          { width = image_width, height = image_height, stretch = false }
         ),
+        width = image_width,
         height = image_height,
-        width = image_height,
       },
       { pane = 2, section = 'header' },
       { pane = 2, section = 'keys', icon = ' ', title = 'Keymaps', indent = 2, padding = 1 },
