@@ -13,3 +13,5 @@ spell/
 
 
 .DS_Store
+.gortex
+nvim.log
