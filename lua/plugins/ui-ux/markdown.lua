@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
     vim.keymap.set('n', '<leader>tm', '<cmd>RenderMarkdown toggle<cr>', {
       buffer = args.buf,
-      desc = '[T]oggle [M]arkdown render',
+      desc = '[M]arkdown render',
     })
   end,
 })

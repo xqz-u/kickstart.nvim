@@ -93,7 +93,7 @@ vim.keymap.set(
 )
 vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>tc', builtin.colorscheme, { desc = '[T]oggle [C]olorscheme' })
+vim.keymap.set('n', '<leader>tc', builtin.colorscheme, { desc = '[C]olorscheme' })
 -- Shortcut for searching your Neovim configuration files
 vim.keymap.set(
   'n',
