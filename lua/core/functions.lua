@@ -12,6 +12,18 @@ math.randomseed(vim.uv.hrtime())
 --- @return string url full https GitHub URL
 function M.gh(repo) return 'https://github.com/' .. repo end
 
+--- Enable buffer-local spell checking for prose. Skips scratch/nofile buffers
+--- (LSP hover, signature-help floats, etc.) where `spell` — being window-local —
+--- would otherwise leak and just add noise. In a Treesitter-highlighted code
+--- buffer the checker is automatically scoped to the `@spell` ranges (comments
+--- and docstrings), so identifiers and keywords are left alone.
+--- @param lang? string value for 'spelllang' (default 'en_us')
+function M.enable_spell(lang)
+  if vim.bo.buftype ~= '' then return end
+  vim.opt_local.spell = true
+  vim.opt_local.spelllang = lang or 'en_us'
+end
+
 --- Pick a random image from `folder` and build the `chafa` command that renders
 --- it, ready to feed to a snacks' `terminal` dashboard section's `cmd`.
 --- @param folder string directory to scan for images (relative to cwd or absolute)

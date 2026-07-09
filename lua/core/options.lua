@@ -77,4 +77,6 @@ do
   vim.o.autoindent = true -- copy indent from current line when starting new one
   vim.o.smartindent = true
   vim.o.swapfile = true
+
+  vim.o.spellfile = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
 end
