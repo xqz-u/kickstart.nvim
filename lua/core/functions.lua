@@ -44,4 +44,23 @@ function M.random_image_cmd(folder, opts)
   )
 end
 
+--- Register a list of keybindings through `vim.keymap.set`. Each entry is a
+--- positional `{ modes, lhs, rhs, opts }` tuple (lazy.nvim's `keys` spec shape,
+--- minus the field names).
+--- `lhs` may also be a list of strings, in which case the same mapping is registered for each `lhs`.
+--- `extra_opts`, when given, is merged into every entry's `opts` — handy for buffer-local maps,
+--- e.g. `set_keymaps(maps, { buffer = event.buf })`.
+--- @param keybindings table[] list of { modes, lhs, rhs, opts } tuples
+--- @param extra_opts? table opts merged into every entry (its keys win on conflict)
+function M.set_keymaps(keybindings, extra_opts)
+  for _, spec in ipairs(keybindings) do
+    local modes, lhs, rhs, opts = unpack(spec)
+    local lhss = type(lhs) == 'table' and lhs or { lhs }
+    local merged = vim.tbl_extend('force', opts or {}, extra_opts or {})
+    for _, key in ipairs(lhss) do
+      vim.keymap.set(modes, key, rhs, merged)
+    end
+  end
+end
+
 return M

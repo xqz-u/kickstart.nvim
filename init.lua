@@ -40,9 +40,10 @@ end
 -- ============================================================
 -- SECTION 5: SEARCH & NAVIGATION
 -- ============================================================
-do
-  require 'plugins.telescope'
-end
+-- do
+--   -- Telescope disabled in favor of the Snacks picker ('plugins.ui-ux.snacks').
+--   -- require 'plugins.telescope'
+-- end
 
 -- ============================================================
 -- SECTION 6 to 9: Coding setup.
@@ -75,7 +76,8 @@ do
   require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
-  require 'kickstart.plugins.neo-tree'
+  -- Using Snacks.explorer()
+  -- require 'kickstart.plugins.neo-tree'
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
