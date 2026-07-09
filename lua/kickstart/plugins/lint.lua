@@ -1,11 +1,20 @@
 -- Linting
+local gh = require('core.functions').gh
 
-vim.pack.add { 'https://github.com/mfussenegger/nvim-lint' }
+vim.pack.add { gh 'mfussenegger/nvim-lint' }
 
 local lint = require 'lint'
+
 lint.linters_by_ft = {
-  markdown = { 'markdownlint' }, -- Make sure to install `markdownlint` via mason / npm
+  markdown = { 'markdownlint-cli2' }, -- Make sure to install via mason / npm
 }
+
+-- Use my global markdownlint-cli2 config, if it exists.
+local md = lint.linters['markdownlint-cli2']
+local global_config = vim.fn.expand '~/.config/.markdownlint-cli2.yaml'
+if vim.fn.filereadable(global_config) == 1 then
+  md.args = vim.list_extend({ '--config', global_config }, md.args or {})
+end
 
 -- To allow other plugins to add linters to require('lint').linters_by_ft,
 -- instead set linters_by_ft like this:
