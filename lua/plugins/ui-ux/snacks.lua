@@ -49,7 +49,8 @@ require('snacks').setup {
   picker = {},
 }
 
-vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit() end, { desc = '[L]azy[G]it' })
+-- Under '<leader>gs' as to signify 'git status' (similar to magit in emacs)
+vim.keymap.set('n', '<leader>gs', function() Snacks.lazygit() end, { desc = 'LazyGit' })
 
 -- Snacks picker for files: previews images inline, unlike Telescope's previewer.
 vim.keymap.set(

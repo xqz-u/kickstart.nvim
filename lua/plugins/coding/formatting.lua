@@ -9,6 +9,7 @@ require('conform').setup {
     -- You can specify filetypes to autoformat on save here:
     local enabled_filetypes = {
       lua = true,
+      markdown = true,
       python = true,
     }
     if enabled_filetypes[vim.bo[bufnr].filetype] then
@@ -30,6 +31,7 @@ require('conform').setup {
     -- javascript = { "prettierd", "prettier", stop_after_first = true },
     --- style from .stylua.toml; lua_ls formatting is disabled in lsp-mason.lua
     lua = { 'stylua' },
+    markdown = { 'markdownlint-cli2' },
     --   ruff_fix             -> source.fixAll   (apply safe lint autofixes)
     --   ruff_organize_imports-> source.organizeImports
     --   ruff_format          -> ruff format
@@ -37,4 +39,9 @@ require('conform').setup {
   },
 }
 
-vim.keymap.set({ 'n', 'v' }, '<leader>f', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
+vim.keymap.set(
+  { 'n', 'v' },
+  '<leader>f',
+  function() require('conform').format { async = true } end,
+  { desc = '[F]ormat buffer' }
+)
