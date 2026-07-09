@@ -11,8 +11,19 @@ vim.pack.add { gh 'folke/tokyonight.nvim' }
 require('tokyonight').setup {
   transparent = true,
   styles = {
-    comments = { italic = false }, -- Disable italics in comments
+    comments = { italic = true },
   },
+  -- Brighten low-contrast text that gets washed out by terminal transparency.
+  ---@param hl tokyonight.Highlights
+  ---@param c ColorScheme
+  on_highlights = function(hl, c)
+    -- Default `c.comment` (#636da6) is too dim over a transparent background.
+    hl.Comment = { fg = c.fg_dark, italic = true }
+    -- Non-current line numbers use the same dim comment color by default.
+    hl.LineNr = { fg = c.fg_gutter }
+    -- Bottom message line / echo area.
+    hl.MsgArea = { fg = c.fg }
+  end,
 }
 
 -- Load the colorscheme here.
