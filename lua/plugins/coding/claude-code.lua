@@ -10,4 +10,12 @@ require('claude-code').setup {
     position = 'float',
   },
   command = 'claudeboxed --yolo',
+  -- command = 'claude --dangerously-skip-permissions',
+  keymaps = {
+    toggle = {
+      variants = {
+        resume = '<leader>cR',
+      },
+    },
+  },
 }
