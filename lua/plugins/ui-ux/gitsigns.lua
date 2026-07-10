@@ -7,19 +7,19 @@ vim.pack.add { gh 'lewis6991/gitsigns.nvim' }
 
 require('gitsigns').setup {
   signs = {
-    add = { text = '▍' }, ---@diagnostic disable-line: missing-fields
-    change = { text = '▍' }, ---@diagnostic disable-line: missing-fields
-    delete = { text = '▁' }, ---@diagnostic disable-line: missing-fields
-    topdelete = { text = '▔' }, ---@diagnostic disable-line: missing-fields
-    changedelete = { text = '▍' }, ---@diagnostic disable-line: missing-fields
-    untracked = { text = '▍' }, ---@diagnostic disable-line: missing-fields
+    add = { text = '▍' },
+    change = { text = '▍' },
+    delete = { text = '▁' },
+    topdelete = { text = '▔' },
+    changedelete = { text = '▍' },
+    untracked = { text = '▍' },
   },
   signs_staged = {
-    add = { text = '▍' }, ---@diagnostic disable-line: missing-fields
-    change = { text = '▍' }, ---@diagnostic disable-line: missing-fields
-    delete = { text = '▁' }, ---@diagnostic disable-line: missing-fields
-    topdelete = { text = '▔' }, ---@diagnostic disable-line: missing-fields
-    changedelete = { text = '▍' }, ---@diagnostic disable-line: missing-fields
+    add = { text = '▍' },
+    change = { text = '▍' },
+    delete = { text = '▁' },
+    topdelete = { text = '▔' },
+    changedelete = { text = '▍' },
   },
   on_attach = function(bufnr)
     local gitsigns = require 'gitsigns'

@@ -30,3 +30,25 @@ require('mini.ai').setup {
 -- - sd'   - [S]urround [D]elete [']quotes
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require('mini.surround').setup()
+
+local minimap = require 'mini.map'
+minimap.setup {
+  integrations = {
+    minimap.gen_integration.builtin_search(),
+    minimap.gen_integration.diagnostic(),
+    minimap.gen_integration.gitsigns(),
+  },
+  symbols = {
+    -- Braille dots pack a 2x4 block of buffer cells into one glyph, giving a
+    -- denser, more legible zoom-out than the default block symbols.
+    encode = minimap.gen_encode_symbols.dot '4x2',
+  },
+  window = {
+    width = 10,
+    winblend = 100,
+    show_integration_count = false,
+  },
+}
+
+-- Toggle it off/on (`<leader>tm` is taken by the markdown-render toggle).
+vim.keymap.set('n', '<leader>tM', minimap.toggle, { desc = '[M]inimap' })
