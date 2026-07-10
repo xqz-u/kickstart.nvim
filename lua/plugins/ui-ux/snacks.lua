@@ -14,7 +14,6 @@ require('snacks').setup {
   -- Enabled to clear the "notifier is not ready" checkhealth error; snacks and
   -- lazygit route their messages through it.
   notifier = { enabled = true },
-  -- Free perf wins (no UX change): degrade gracefully on huge files / fast open.
   bigfile = { enabled = true },
   quickfile = { enabled = true },
   dashboard = {
@@ -51,10 +50,16 @@ require('snacks').setup {
   image = {},
   picker = {
     sources = {
-      -- https://github.com/folke/snacks.nvim/blob/882c996cf28183f4d63640de0b4c02ec886d01f2/docs/picker.md?plain=1#L1026
-      explorer = { layout = { layout = { position = 'right' } } },
+      explorer = {
+        hidden = true, -- show hidden files by default
+        layout = {
+          -- https://github.com/folke/snacks.nvim/blob/882c996cf28183f4d63640de0b4c02ec886d01f2/docs/picker.md?plain=1#L1026
+          layout = { position = 'right' },
+          -- preview = true,
+        },
+      },
       -- Search-in-buffer (Snacks.picker.lines) defaults to the bottom 'ivy'
-      -- split, prefer the default layout.
+      -- split, use the default layout.
       -- lines = {
       --   layout = {
       --     preset = function() return vim.o.columns >= 120 and 'default' or 'vertical' end,

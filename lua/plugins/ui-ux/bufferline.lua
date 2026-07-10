@@ -19,7 +19,12 @@ require('bufferline').setup {
     end,
     -- Keep the sidebar clear: reserve space for neo-tree instead of overlapping it.
     offsets = {
-      { filetype = 'neo-tree', text = 'File Explorer', highlight = 'Directory', separator = true },
+      {
+        filetype = 'snacks_picker_list',
+        text = 'File Explorer',
+        highlight = 'Directory',
+        separator = true,
+      },
     },
     show_buffer_close_icons = true,
     show_close_icon = false,
