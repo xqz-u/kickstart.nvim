@@ -82,7 +82,8 @@ local snacks_keybindings = {
     { desc = '[N]otification History' },
   },
   -- File explorer
-  { 'n', '<leader>e', function() Snacks.explorer() end, { desc = 'File [E]xplorer' } },
+  -- { 'n', '<leader>e', function() Snacks.explorer() end, { desc = 'File [E]xplorer' } },
+  { 'n', '\\', function() Snacks.explorer() end, { desc = 'File [E]xplorer' } },
 
   -- Terminal. Options applied only to shells, keeping lazygit floating.
   -- Window navigation in and out of terminal lives in 'core/keymaps.lua'.
