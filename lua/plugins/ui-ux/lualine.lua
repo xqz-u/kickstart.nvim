@@ -19,5 +19,6 @@ require('lualine').setup {
         file_status = true,
       },
     },
+    lualine_x = { 'filetype', 'lsp_status' },
   },
 }
