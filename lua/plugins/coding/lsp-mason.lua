@@ -120,11 +120,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --  See `:help lsp-config` for information about keys and how to configure
 ---@type table<string, vim.lsp.Config>
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  --
   -- Some languages (like typescript) have entire language plugins that can be useful:
   --    https://github.com/pmizio/typescript-tools.nvim
   --
@@ -143,6 +138,7 @@ local servers = {
       diagnostics = { enable = false },
     },
   },
+  svelte = {},
   -- Special Lua Config, as recommended by neovim help docs
   lua_ls = {
     on_init = function(client)
@@ -201,6 +197,7 @@ vim.list_extend(ensure_installed, {
   -- Non-LSP tools (formatters, linters, DAP adapters) installed by Mason but
   -- NOT passed to vim.lsp.enable below.
   'stylua', -- Lua formatter (used by conform.nvim)
+  'prettier', -- JS/TS/Svelte/CSS/HTML/JSON/YAML formatter (used by conform.nvim)
 })
 
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -209,3 +206,11 @@ for name, server in pairs(servers) do
   vim.lsp.config(name, server)
   vim.lsp.enable(name)
 end
+
+-- TypeScript via typescript-tools.nvim (not ts_ls)
+vim.pack.add {
+  gh 'nvim-lua/plenary.nvim',
+  gh 'pmizio/typescript-tools.nvim',
+}
+
+require('typescript-tools').setup {}
