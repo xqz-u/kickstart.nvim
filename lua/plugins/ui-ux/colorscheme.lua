@@ -23,6 +23,10 @@ require('tokyonight').setup {
     hl.LineNr = { fg = c.fg_gutter }
     -- Bottom message line / echo area.
     hl.MsgArea = { fg = c.fg }
+    -- rainbow-delimiters paints brackets with a high-priority foreground, so
+    -- MatchParen can't win the fg channel - meaning it is difficult to highlight the fg
+    -- of the matching item
+    hl.MatchParen = { bold = true, underline = true }
   end,
 }
 

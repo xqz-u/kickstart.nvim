@@ -53,6 +53,7 @@ end
 -- ============================================================
 do
   require 'plugins.coding.lsp-mason'
+  require 'plugins.coding.rainbow-delimiters'
   require 'plugins.coding.formatting'
   require 'plugins.coding.snippets'
   require 'plugins.coding.autocomplete'
