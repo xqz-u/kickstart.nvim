@@ -36,7 +36,12 @@ do
     },
   }
 
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+  vim.keymap.set(
+    'n',
+    '<leader>q',
+    vim.diagnostic.setloclist,
+    { desc = 'Open diagnostic [Q]uickfix list' }
+  )
 
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
   -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -57,8 +62,18 @@ do
   -- (the terminal variant first leaves terminal mode so you can jump straight out
   -- of a terminal split). See `:help wincmd` for a list of all window commands.
   for key, dir in pairs { h = 'left', l = 'right', j = 'lower', k = 'upper' } do
-    vim.keymap.set('n', '<C-' .. key .. '>', '<C-w><C-' .. key .. '>', { desc = 'Move focus to the ' .. dir .. ' window' })
-    vim.keymap.set('t', '<C-' .. key .. '>', '<C-\\><C-n><C-w>' .. key, { desc = 'Move focus to the ' .. dir .. ' window' })
+    vim.keymap.set(
+      'n',
+      '<C-' .. key .. '>',
+      '<C-w><C-' .. key .. '>',
+      { desc = 'Move focus to the ' .. dir .. ' window' }
+    )
+    vim.keymap.set(
+      't',
+      '<C-' .. key .. '>',
+      '<C-\\><C-n><C-w>' .. key,
+      { desc = 'Move focus to the ' .. dir .. ' window' }
+    )
   end
 
   -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
@@ -91,7 +106,23 @@ do
   vim.keymap.set('n', '<Left>', '<cmd> vertical resize -2 <CR>')
   vim.keymap.set('n', '<Right>', '<cmd> vertical resize +2 <CR>')
 
-  vim.keymap.set('n', '<leader><Tab>', '<cmd> bprevious <CR>', { desc = 'Switch to previous buffer' })
+  vim.keymap.set(
+    'n',
+    '<leader><Tab>',
+    '<cmd> bprevious <CR>',
+    { desc = 'Switch to previous buffer' }
+  )
 
-  vim.keymap.set('n', '<leader>w', '<cmd> noautocmd w <CR>', { desc = 'Save file [w]ithout auto-formatting' })
+  vim.keymap.set(
+    'n',
+    '<leader>w',
+    '<cmd> noautocmd w <CR>',
+    { desc = 'Save file [w]ithout auto-formatting' }
+  )
+
+  vim.keymap.set('n', '<leader>by', function()
+    local path = vim.fn.expand '%:p'
+    vim.fn.setreg('+', path)
+    vim.notify('Yanked: ' .. path)
+  end, { desc = '[B]uffer [Y]ank path' })
 end
