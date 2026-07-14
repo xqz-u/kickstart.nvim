@@ -57,6 +57,11 @@ require('snacks').setup {
           layout = { position = 'right' },
           -- preview = true,
         },
+        -- Scope pickers to the directory under the cursor, so the explorer doubles
+        -- as a "where to search from" selector for dirs outside cwd (navigate with
+        -- <BS>, `.` to focus a subdir as root, or <C-c> to set it as cwd via :tcd).
+        -- `<leader>/` (grep) is a Snacks default; add find-files parity here.
+        win = { list = { keys = { ['<leader>sf'] = 'picker_files' } } },
       },
       -- Search-in-buffer (Snacks.picker.lines) defaults to the bottom 'ivy'
       -- split, use the default layout.
@@ -84,6 +89,14 @@ local snacks_keybindings = {
   -- File explorer
   -- { 'n', '<leader>e', function() Snacks.explorer() end, { desc = 'File [E]xplorer' } },
   { 'n', '\\', function() Snacks.explorer() end, { desc = 'File [E]xplorer' } },
+  -- Explore/find from the CURRENT buffer's directory instead of cwd. Lets you
+  -- browse files outside the workspace.
+  {
+    'n',
+    '|',
+    function() Snacks.explorer { cwd = vim.fn.expand '%:p:h' } end,
+    { desc = 'File [E]xplorer (buffer dir)' },
+  },
 
   -- Terminal. Options applied only to shells, keeping lazygit floating.
   -- Window navigation in and out of terminal lives in 'core/keymaps.lua'.
@@ -116,6 +129,13 @@ local snacks_keybindings = {
 
   -- Snacks smart/files picker previews images inline, unlike Telescope's previewer.
   { 'n', '<leader>sf', Snacks.picker.smart, { desc = '[F]iles' } },
+  -- Find files rooted at the CURRENT buffer's directory.
+  {
+    'n',
+    '<leader>sF',
+    function() Snacks.picker.files { cwd = vim.fn.expand '%:p:h' } end,
+    { desc = '[F]iles (buffer dir)' },
+  },
   {
     'n',
     '<leader>sn',
@@ -132,6 +152,13 @@ local snacks_keybindings = {
   },
   -- grep
   { 'n', '<leader>sg', function() Snacks.picker.grep() end, { desc = 'By [G]rep' } },
+  -- Grep rooted at the current buffer's directory (outside cwd too).
+  {
+    'n',
+    '<leader>sG',
+    function() Snacks.picker.grep { cwd = vim.fn.expand '%:p:h' } end,
+    { desc = 'By [G]rep (buffer dir)' },
+  },
   {
     { 'n', 'x' },
     '<leader>sw',
