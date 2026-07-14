@@ -129,7 +129,7 @@ local servers = {
   -- python (Astral toolchain): ruff = linter + formatter + import sorting,
   -- ty = type checker / hover / go-to-definition
   ruff = {},
-  ty = {},
+  ty = { settings = { ty = { completions = { autoImport = true } } } },
   -- jedi provides the refactor code actions ty lacks (extract variable/function,
   -- inline). Diagnostics off here so ruff stays the only lint source; its other
   -- capabilities are stripped in the LspAttach handler above.
