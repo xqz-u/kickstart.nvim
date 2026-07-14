@@ -27,7 +27,7 @@ require('snacks').setup {
       {
         section = 'terminal',
         cmd = functions.random_image_cmd(
-          vim.fn.join({ vim.fn.stdpath 'config', 'images' }, '/'),
+          '~/Pictures/nvim-avatars/',
           { width = image_width, height = image_height, stretch = false }
         ),
         width = image_width,
