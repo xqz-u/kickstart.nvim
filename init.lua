@@ -36,6 +36,7 @@ do
   require 'plugins.ui-ux.scrollbar'
   require 'plugins.ui-ux.snacks'
   require 'plugins.ui-ux.markdown'
+  require 'plugins.ui-ux.smear-cursor'
 end
 
 -- ============================================================
