@@ -26,6 +26,13 @@ require('snacks').setup {
     sections = {
       {
         section = 'terminal',
+        cmd = 'fortune -aes | cowsay -p; sleep .1',
+        -- Snacks caches terminal output (default ttl 5m); ttl = 0 disables it thus running the command
+        -- each time
+        ttl = 0,
+      },
+      {
+        section = 'terminal',
         cmd = functions.random_image_cmd(
           '~/Pictures/nvim-avatars/',
           { width = image_width, height = image_height, stretch = false }
