@@ -58,7 +58,8 @@ require('snacks').setup {
   picker = {
     sources = {
       explorer = {
-        hidden = true, -- show hidden files by default
+        hidden = true,  -- show hidden files
+        ignored = true, -- show gitignored files
         layout = {
           -- https://github.com/folke/snacks.nvim/blob/882c996cf28183f4d63640de0b4c02ec886d01f2/docs/picker.md?plain=1#L1026
           layout = { position = 'right' },
