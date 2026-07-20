@@ -10,7 +10,26 @@ vim.pack.add {
 local image_width, image_height = 60, 20
 
 require('snacks').setup {
-  lazygit = {},
+  lazygit = {
+    -- Snacks defaults to lazygit's `nvim-remote` editPreset. Its edit template
+    -- (POSIX/zsh branch) does two things: `--remote-send "q"` forwards a `q` into
+    -- the focused lazygit terminal so lazygit quits (closing the float), then
+    -- `--remote-tab` opens the file in a NEW tab. We reuse that template verbatim
+    -- but swap `--remote-tab` -> `--remote-silent`: once the float is gone focus
+    -- returns to the editor window, so the file opens there instead of a new tab.
+    -- LazyGit presets defined at https://github.com/jesseduffield/lazygit/blob/e91dcb70562e27d01868e356eee44f32503cd228/pkg/config/editor_presets.go#L56
+    config = {
+      os = {
+        edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) '
+          .. '|| (nvim --server "$NVIM" --remote-send "q" '
+          .. '&& nvim --server "$NVIM" --remote-silent {{filename}})',
+        editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) '
+          .. '|| (nvim --server "$NVIM" --remote-send "q" '
+          .. '&& nvim --server "$NVIM" --remote-silent {{filename}} '
+          .. '&& nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
+      },
+    },
+  },
   -- Enabled to clear the "notifier is not ready" checkhealth error; snacks and
   -- lazygit route their messages through it.
   notifier = { enabled = true },
@@ -58,7 +77,7 @@ require('snacks').setup {
   picker = {
     sources = {
       explorer = {
-        hidden = true,  -- show hidden files
+        hidden = true, -- show hidden files
         ignored = true, -- show gitignored files
         layout = {
           -- https://github.com/folke/snacks.nvim/blob/882c996cf28183f4d63640de0b4c02ec886d01f2/docs/picker.md?plain=1#L1026
