@@ -45,7 +45,6 @@ minimap.setup {
   },
   window = {
     width = 10,
-    winblend = 100,
     show_integration_count = false,
   },
 }

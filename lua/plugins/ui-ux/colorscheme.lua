@@ -9,7 +9,8 @@ vim.pack.add { gh 'folke/tokyonight.nvim' }
 
 ---@diagnostic disable-next-line: missing-fields
 require('tokyonight').setup {
-  transparent = true,
+  -- transparent = true,
+  transparent = false,
   styles = {
     comments = { italic = true },
   },
