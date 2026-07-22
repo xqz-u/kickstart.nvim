@@ -1,13 +1,14 @@
 local functions = require 'core.functions'
 
-vim.pack.add {
-  functions.gh 'folke/todo-comments.nvim', -- optional
-  functions.gh 'folke/snacks.nvim',
-}
-
 -- Shared between the chafa render size and the dashboard section height so the
 -- terminal pane is exactly as tall as the image it renders.
 local image_width, image_height = 60, 20
+local TERM_OPTS = { win = { position = 'bottom', height = 0.4 } }
+
+vim.pack.add {
+  functions.gh 'folke/snacks.nvim',
+  functions.gh 'folke/todo-comments.nvim',
+}
 
 require('snacks').setup {
   lazygit = {
@@ -102,7 +103,20 @@ require('snacks').setup {
   explorer = {},
 }
 
-local TERM_OPTS = { win = { position = 'bottom', height = 0.4 } }
+require('todo-comments').setup {
+  highlight = {
+    -- https://github.com/folke/todo-comments.nvim/blob/31e3c38ce9b29781e4422fc0322eb0a21f4e8668/lua/todo-comments/config.lua#L50
+    -- default: [[.*<(KEYWORDS)\s*:]]
+    -- %(...) is a NON-capturing group, \( \) are literal parens, .{-} is non-greedy
+    pattern = [[.*<((KEYWORDS)%(\(.{-}\))?)\s*:]],
+  },
+  search = {
+    -- https://github.com/folke/todo-comments.nvim/blob/31e3c38ce9b29781e4422fc0322eb0a21f4e8668/lua/todo-comments/config.lua#L78
+    -- default: [[\b(KEYWORDS):]]
+    pattern = [[\b(KEYWORDS)(\([^)]*\))?:]],
+  },
+}
+
 local snacks_keybindings = {
   -- Reopen the dashboard on demand (not just at startup).
   { 'n', '<leader>d', function() Snacks.dashboard.open() end, { desc = '[D]ashboard' } },
