@@ -12,13 +12,17 @@ vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } 
 local parsers = {
   'bash',
   'c',
+  'css',
   'diff',
   'html',
+  'javascript',
   'lua',
   'luadoc',
   'markdown',
   'markdown_inline',
   'query',
+  'svelte',
+  'typescript',
   'vim',
   'vimdoc',
 }
