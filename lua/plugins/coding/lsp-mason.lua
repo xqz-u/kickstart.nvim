@@ -214,4 +214,12 @@ vim.pack.add {
   gh 'pmizio/typescript-tools.nvim',
 }
 
-require('typescript-tools').setup {}
+require('typescript-tools').setup {
+  -- Enable correct symbol resolutions in Svelte projects
+  -- (needs typescript-svelte-plugin installed for the project e.g. as a dev dependency)
+  settings = {
+    tsserver_plugins = {
+      'typescript-svelte-plugin',
+    },
+  },
+}
