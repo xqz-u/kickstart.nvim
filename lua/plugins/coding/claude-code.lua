@@ -13,6 +13,7 @@ require('claude-code').setup {
   -- command = 'claude --dangerously-skip-permissions',
   keymaps = {
     toggle = {
+      normal = '<leader>cc',
       variants = {
         resume = '<leader>cR',
       },
