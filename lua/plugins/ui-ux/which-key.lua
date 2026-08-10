@@ -10,6 +10,7 @@ require('which-key').setup {
   -- Document existing key chains
   spec = {
     { '<leader>s', group = '[S]earch', mode = { 'n', 'x' } },
+    { '<leader>r', group = '[R]eplace', mode = { 'n', 'x' } },
     { '<leader>t', group = '[T]oggle' },
     { '<leader>b', group = '[B]uffer' },
     { '<leader>g', group = '[G]it' },

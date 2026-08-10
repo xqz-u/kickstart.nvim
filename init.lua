@@ -59,6 +59,7 @@ do
   require 'plugins.coding.autocomplete'
   require 'plugins.coding.treesitter'
   require 'plugins.coding.claude-code'
+  require 'plugins.coding.grug-far'
 end
 
 -- ============================================================
