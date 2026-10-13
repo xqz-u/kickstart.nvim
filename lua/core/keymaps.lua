@@ -43,6 +43,14 @@ do
     { desc = 'Open diagnostic [Q]uickfix list' }
   )
 
+  -- Toggle diagnostic display (virtual text/underline/signs) for the current
+  -- buffer only, regardless of source (LSP, nvim-lint, etc.). Handy to read
+  -- a file without linter noise, e.g. markdownlint-cli2 warnings.
+  vim.keymap.set('n', '<leader>td', function()
+    local enabled = vim.diagnostic.is_enabled { bufnr = 0 }
+    vim.diagnostic.enable(not enabled, { bufnr = 0 })
+  end, { desc = '[T]oggle [D]iagnostics for buffer' })
+
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
   -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
   -- is not what someone will guess without a bit more experience.
