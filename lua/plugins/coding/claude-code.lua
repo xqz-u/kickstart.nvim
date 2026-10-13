@@ -9,8 +9,8 @@ require('claude-code').setup {
   window = {
     position = 'float',
   },
-  command = 'claudeboxed --yolo',
-  -- command = 'claude --dangerously-skip-permissions',
+  -- command = 'claudeboxed --yolo',
+  command = 'claude --dangerously-skip-permissions',
   keymaps = {
     toggle = {
       normal = '<leader>cc',
